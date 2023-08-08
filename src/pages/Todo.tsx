@@ -8,12 +8,13 @@ import {
 } from '../api/todo';
 import { UpdateTodo } from '../api/todo';
 import TodoCreator from '../components/TodoCreator';
+import TodoList from '../components/TodoList';
 
-interface TodoList {
-  id?: number;
-  todo?: string;
-  isCompleted?: boolean;
-  userId?: number;
+interface TodoType {
+  id: number;
+  todo: string;
+  isCompleted: boolean;
+  userId: number;
 }
 
 interface TodoDispatch {
@@ -23,12 +24,12 @@ interface TodoDispatch {
 }
 
 type Action =
-  | { type: 'INIT'; data: TodoList[] }
-  | { type: 'CREATE'; data: TodoList }
+  | { type: 'INIT'; data: TodoType[] }
+  | { type: 'CREATE'; data: TodoType }
   | { type: 'DELETE'; id: number }
-  | { type: 'EDIT'; data: TodoList };
+  | { type: 'EDIT'; data: TodoType };
 
-const reducer = (state: TodoList[], action: Action) => {
+const reducer = (state: TodoType[], action: Action) => {
   let newState = [];
   switch (action.type) {
     case 'INIT': {
@@ -54,7 +55,7 @@ const reducer = (state: TodoList[], action: Action) => {
   return newState;
 };
 
-export const TodoStateContext = React.createContext<TodoList[]>([]);
+export const TodoStateContext = React.createContext<TodoType[]>([]);
 export const TodoDispatchContext = React.createContext<TodoDispatch>({
   onCreate: () => {},
   onEdit: () => {},
@@ -71,24 +72,30 @@ const Todo = () => {
   }, []);
 
   const onCreate = (todo: string) => {
-    createTodoAPI(todo).then((res) => console.log(res.data));
+    createTodoAPI(todo).then((res) =>
+      dispatch({ type: 'CREATE', data: res.data }),
+    );
   };
 
   const onDelete = (targetId: number) => {
-    deleteTodoAPI(targetId).then((res) => console.log(res.data));
+    deleteTodoAPI(targetId).then((res) =>
+      dispatch({ type: 'DELETE', id: targetId }),
+    );
   };
 
   const onEdit = (targetId: number, updataData: UpdateTodo) => {
-    updateTodoAPI(targetId, updataData).then((res) => console.log(res));
+    updateTodoAPI(targetId, updataData).then((res) =>
+      dispatch({ type: 'EDIT', data: res.data }),
+    );
   };
-
   const [data, dispatch] = useReducer(reducer, []);
+
   return (
     <TodoStateContext.Provider value={data}>
       <TodoDispatchContext.Provider value={{ onCreate, onEdit, onDelete }}>
         <div>
           <TodoCreator />
-          {/* <TodoList /> */}
+          <TodoList />
           {/* 컨테이너 */}
           {/* 아이템 */}
           {/* 체크박스 텍스트 수정 삭제 */}
