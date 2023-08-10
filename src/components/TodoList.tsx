@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import TodoItem from './TodoItem';
-import { TodoStateContext } from '../pages/Todo';
+import { TodoStateContext } from '../context/TodoContext';
 import { styled } from 'styled-components';
 
 const TodoListStyle = styled.ul`
@@ -11,7 +11,6 @@ const TodoListStyle = styled.ul`
 
 const TodoList = () => {
   const todoList = useContext(TodoStateContext);
-  console.log(todoList);
   return (
     <TodoListStyle>
       {todoList.map((item) => (

@@ -1,5 +1,5 @@
 import React, { useContext, useState, useRef } from 'react';
-import { TodoDispatchContext } from '../pages/Todo';
+import { TodoDispatchContext } from '../context/TodoContext';
 import styled from 'styled-components';
 import SignButton from './ui/CustomButton';
 import { Input } from '../styles/globalStyles';

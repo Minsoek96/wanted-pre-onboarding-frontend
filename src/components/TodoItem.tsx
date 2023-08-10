@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { TodoDispatchContext } from '../pages/Todo';
+import { TodoDispatchContext } from '../context/TodoContext';
 import styled from 'styled-components';
 import { v } from '../styles/variables';
 import SignButton from './ui/CustomButton';
@@ -103,4 +103,4 @@ const TodoItem = ({ id, todo, isCompleted }: TodoItemProps) => {
   );
 };
 
-export default TodoItem;
+export default React.memo(TodoItem);
