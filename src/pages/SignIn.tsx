@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { signInAPI } from '../api/auth';
 import useValidation from '../hooks/useValidation';
-import SignButton from '../components/SignButton';
+import SignButton from '../components/ui/CustomButton';
 import { useNavigate } from 'react-router';
+import { Wrapper, Form, Input } from '../styles/globalStyles';
+import useAuth from '../hooks/useAuth';
 
 const SignIn = () => {
+  useAuth();
   const [userEmail, setUserEmail] = useState<string>('');
   const [userPassWord, setUserPassWord] = useState<string>('');
   const { isValid, errorMsg } = useValidation({
@@ -27,28 +30,28 @@ const SignIn = () => {
     console.log(userEmail, userPassWord);
   };
   return (
-    <div>
+    <Wrapper>
       {errorMsg && errorMsg}
-      <form onSubmit={handleSubmit}>
-        <input
+      <Form onSubmit={handleSubmit}>
+        <Input
           data-testid="email-input"
           type={'email'}
           value={userEmail}
           onChange={(e) => setUserEmail(e.target.value)}
-        ></input>
-        <input
+        ></Input>
+        <Input
           data-testid="password-input"
           type={'password'}
           value={userPassWord}
           onChange={(e) => setUserPassWord(e.target.value)}
-        ></input>
+        ></Input>
         <SignButton
           id="signin-button"
           text="로그인"
           isValid={isValid}
         ></SignButton>
-      </form>
-    </div>
+      </Form>
+    </Wrapper>
   );
 };
 

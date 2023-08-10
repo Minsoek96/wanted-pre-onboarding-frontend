@@ -6,10 +6,11 @@ interface UserData {
   password: string;
 }
 
-const signUpAPI = async (userData: UserData) => {
-  return API.post(SIGNUP_API, { userData });
+export const signUpAPI = async (userData: UserData) => {
+  console.log(userData);
+  return API.post(SIGNUP_API, userData);
 };
 
-const signInAPI = async (userData: UserData) => {
-  return API.post(LOGIN_API, { userData });
+export const signInAPI = async (userData: UserData) => {
+  return API.post(LOGIN_API, userData);
 };

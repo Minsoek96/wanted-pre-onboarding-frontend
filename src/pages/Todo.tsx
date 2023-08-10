@@ -9,6 +9,7 @@ import {
 import { UpdateTodo } from '../api/todo';
 import TodoCreator from '../components/TodoCreator';
 import TodoList from '../components/TodoList';
+import styled from 'styled-components';
 
 interface TodoType {
   id: number;
@@ -22,6 +23,14 @@ interface TodoDispatch {
   onEdit: (targetId: number, updataData: UpdateTodo) => void;
   onDelete: (targetId: number) => void;
 }
+
+const TodoStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`
 
 type Action =
   | { type: 'INIT'; data: TodoType[] }
@@ -93,13 +102,10 @@ const Todo = () => {
   return (
     <TodoStateContext.Provider value={data}>
       <TodoDispatchContext.Provider value={{ onCreate, onEdit, onDelete }}>
-        <div>
+        <TodoStyle>
           <TodoCreator />
           <TodoList />
-          {/* 컨테이너 */}
-          {/* 아이템 */}
-          {/* 체크박스 텍스트 수정 삭제 */}
-        </div>
+        </TodoStyle>
       </TodoDispatchContext.Provider>
     </TodoStateContext.Provider>
   );

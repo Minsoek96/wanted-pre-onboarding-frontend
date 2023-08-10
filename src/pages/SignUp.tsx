@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { signUpAPI } from '../api/auth';
 import useValidation from '../hooks/useValidation';
-import SignButton from '../components/SignButton';
+import SignButton from '../components/ui/CustomButton';
 import { useNavigate } from 'react-router';
+import { Wrapper, Form, Input } from '../styles/globalStyles';
+import useAuth from '../hooks/useAuth';
 
 const SignUp = () => {
+  useAuth();
   const [userEmail, setUserEmail] = useState<string>('');
   const [userPassWord, setUserPassWord] = useState<string>('');
   const { isValid, errorMsg } = useValidation({
@@ -29,28 +32,24 @@ const SignUp = () => {
   };
 
   return (
-    <div>
+    <Wrapper>
       {errorMsg && errorMsg}
-      <form onSubmit={handleSubmit}>
-        <input
+      <Form onSubmit={handleSubmit}>
+        <Input
           data-testid="email-input"
           type={'email'}
           value={userEmail}
           onChange={(e) => setUserEmail(e.target.value)}
-        ></input>
-        <input
+        ></Input>
+        <Input
           data-testid="password-input"
           type={'password'}
           value={userPassWord}
           onChange={(e) => setUserPassWord(e.target.value)}
-        ></input>
-        <SignButton
-          id="signup-button"
-          text="회원가입신청"
-          isValid={isValid}
-        ></SignButton>
-      </form>
-    </div>
+        ></Input>
+        <SignButton id="signup-button" text="회원가입신청" isValid={isValid} />
+      </Form>
+    </Wrapper>
   );
 };
 
