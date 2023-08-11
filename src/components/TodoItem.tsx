@@ -20,7 +20,12 @@ const TodoItemStyle = styled.li`
   box-shadow: 1px 2px 12px rgba(0, 0, 0, 0.6);
   margin: 12px auto;
   &:hover {
-    scale: 1.1;
+    scale: 1.05;
+  }
+  input[type='checkbox'] {
+    width: 30px;
+    height: 30px;
+    margin-left: 8px;
   }
 `;
 
@@ -33,6 +38,10 @@ const Input = styled.input`
   height: 30px;
   width: 95%;
   border-radius: 12px;
+`;
+
+const CheckBox = styled.input`
+  font-size: 35rem;
 `;
 
 const TodoController = styled.div`
@@ -71,12 +80,17 @@ const TodoItem = ({ id, todo, isCompleted }: TodoItemProps) => {
     onDelete(id);
   };
 
+  const handleChangeCompleted = () => {
+    setCompleted(!completed);
+    onEdit(id, { todo: contents, isCompleted: !completed });
+  };
+
   return (
     <TodoItemStyle>
-      <input
+      <CheckBox
         type="checkbox"
         checked={completed}
-        onChange={() => setCompleted(!completed)}
+        onChange={handleChangeCompleted}
       />
       <TodoView>
         {isEditing ? (

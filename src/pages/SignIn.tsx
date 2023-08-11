@@ -53,7 +53,7 @@ const SignIn = () => {
         <SignButton
           id="goSign-button"
           text="회원가입"
-          isValid={isValid}
+          isValid={true}
           onClick={() => navigate('/signup', { replace: true })}
         ></SignButton>
       </Form>
