@@ -21,12 +21,13 @@ const SignButtonStyle = styled.button`
 interface SignButtonProps {
   text: string;
   isValid: boolean;
-  testid: string;
+  id: string;
+  onClick?: () => void;
 }
 
-const SignButton = ({ text, isValid, testid }: SignButtonProps) => {
+const SignButton = ({ text, isValid, id, onClick }: SignButtonProps) => {
   return (
-    <SignButtonStyle disabled={!isValid} data-testid={testid}>
+    <SignButtonStyle disabled={!isValid} data-testid={id} onClick={onClick}>
       {text}
     </SignButtonStyle>
   );
