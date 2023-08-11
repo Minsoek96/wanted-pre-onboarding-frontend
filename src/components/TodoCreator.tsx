@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from 'react';
+import React, { useContext, useState, useRef, useEffect } from 'react';
 import { TodoDispatchContext } from '../context/TodoContext';
 import styled from 'styled-components';
 import SignButton from './ui/CustomButton';
@@ -24,10 +24,13 @@ const TodoCreator = () => {
 
   return (
     <TodoCreatorStyle>
+      <label htmlFor="new-todo-input"></label>
       <Input
         value={todo}
         onChange={(e) => setTodo(e.target.value)}
         ref={todoRef}
+        data-testid="new-todo-input"
+        placeholder="TODO값 입력"
       ></Input>
       <SignButton
         text="추가"

@@ -57,10 +57,14 @@ const TodoItem = ({ id, todo, isCompleted }: TodoItemProps) => {
 
   // 수정요청
   const handleChangeTodo = () => {
-    setIsEditing(!isEditing);
+    if (isEditing && contents.length <= 0) {
+      alert('수정값을 입력해주세요.');
+      return;
+    }
     if (isEditing) {
       onEdit(id, { todo: contents, isCompleted: completed });
     }
+    setIsEditing(!isEditing);
   };
 
   const handleDeleteTodo = () => {
@@ -80,6 +84,7 @@ const TodoItem = ({ id, todo, isCompleted }: TodoItemProps) => {
             value={contents}
             onChange={(e) => setContents(e.target.value)}
             data-testid="new-todo-input"
+            placeholder="TODO"
           ></Input>
         ) : (
           <h5>{todo}</h5>
