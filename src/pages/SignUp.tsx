@@ -19,7 +19,6 @@ const SignUp = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!isValid) {
-      console.log(errorMsg);
       return;
     }
     signUpAPI({ email: userEmail, password: userPassWord })
@@ -28,7 +27,13 @@ const SignUp = () => {
           navigate('/signin', { replace: true });
         }
       })
-      .catch((error) => console.error(error));
+      .catch((error) =>
+      {
+        if(error.response.data.message) {
+          alert("해당 사용자는 이미 존재합니다.")
+        }
+      } 
+      );
   };
 
   return (

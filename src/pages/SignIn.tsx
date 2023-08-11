@@ -21,14 +21,20 @@ const SignIn = () => {
     if (!isValid) {
       return;
     }
-    signInAPI({ email: userEmail, password: userPassWord }).then((res) => {
-      if (res.status === 200) {
-        localStorage.setItem('access_token', res.data.access_token);
-        navigate('/todo', { replace: true });
-      }
-    });
-    console.log(userEmail, userPassWord);
+    signInAPI({ email: userEmail, password: userPassWord })
+      .then((res) => {
+        if (res.status === 200) {
+          localStorage.setItem('access_token', res.data.access_token);
+          navigate('/todo', { replace: true });
+        }
+      })
+      .catch((error) => {
+        if (error.response.data.message) {
+          alert('해당 사용자 정보가 틀립니다.');
+        }
+      });
   };
+
   return (
     <Wrapper>
       {errorMsg && errorMsg}
