@@ -4,6 +4,7 @@ import TodoCreator from '../components/TodoCreator';
 import TodoList from '../components/TodoList';
 import styled from 'styled-components';
 import { TodoProvider } from '../context/TodoContext';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 const TodoStyle = styled.div`
   display: flex;
@@ -17,12 +18,14 @@ const Todo = () => {
   useAuth();
 
   return (
-    <TodoProvider>
-      <TodoStyle>
-        <TodoCreator />
-        <TodoList />
-      </TodoStyle>
-    </TodoProvider>
+    <ErrorBoundary>
+      <TodoProvider>
+        <TodoStyle>
+          <TodoCreator />
+          <TodoList />
+        </TodoStyle>
+      </TodoProvider>
+    </ErrorBoundary>
   );
 };
 
