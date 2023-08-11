@@ -12,11 +12,9 @@ export const createTodoAPI = async (todo: string) => {
 
 export const getTodosAPI = async () => {
   return API.get(TODO_API);
-
 };
 
 export const updateTodoAPI = async (id: number, updateData: UpdateTodo) => {
-  console.log(id, updateData);
   return API.put(`${TODO_API}/${id}`, updateData);
 };
 

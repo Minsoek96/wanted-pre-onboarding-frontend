@@ -7,7 +7,6 @@ interface UserData {
 }
 
 export const signUpAPI = async (userData: UserData) => {
-  console.log(userData);
   return API.post(SIGNUP_API, userData);
 };
 

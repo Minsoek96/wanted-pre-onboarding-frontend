@@ -7,6 +7,7 @@ import { Input } from '../styles/globalStyles';
 const TodoCreatorStyle = styled.div`
   display: flex;
   align-items: center;
+  margin-top: 35px;
 `;
 
 const TodoCreator = () => {
