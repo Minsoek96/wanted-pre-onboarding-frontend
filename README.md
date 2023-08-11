@@ -3,4 +3,4 @@
 
 설치 방법 : npm install && npm start
 
-배포 주소 :
+배포 주소 : https://todo-onboarding.netlify.app
