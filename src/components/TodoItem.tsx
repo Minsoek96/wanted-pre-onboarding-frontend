@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useRef, useEffect } from 'react';
 import { TodoDispatchContext } from '../context/TodoContext';
 import styled from 'styled-components';
 import { v } from '../styles/variables';
@@ -62,7 +62,14 @@ const TodoItem = ({ id, todo, isCompleted }: TodoItemProps) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [completed, setCompleted] = useState<boolean>(isCompleted);
   const [contents, setContents] = useState<string>(todo);
+  const editRef = useRef<HTMLInputElement | null>(null);
   const { onEdit, onDelete } = useContext(TodoDispatchContext);
+
+  useEffect(() => {
+    if (isEditing) {
+      editRef.current?.focus();
+    }
+  }, [isEditing]);
 
   // 수정요청
   const handleChangeTodo = () => {
@@ -77,6 +84,11 @@ const TodoItem = ({ id, todo, isCompleted }: TodoItemProps) => {
   };
 
   const handleDeleteTodo = () => {
+    if (isEditing) {
+      setIsEditing(false);
+      setContents('');
+      return;
+    }
     onDelete(id);
   };
 
@@ -95,9 +107,10 @@ const TodoItem = ({ id, todo, isCompleted }: TodoItemProps) => {
       <TodoView>
         {isEditing ? (
           <Input
+            ref={editRef}
             value={contents}
             onChange={(e) => setContents(e.target.value)}
-            data-testid="new-todo-input"
+            data-testid="modify-input"
             placeholder="TODO"
           ></Input>
         ) : (
@@ -113,9 +126,9 @@ const TodoItem = ({ id, todo, isCompleted }: TodoItemProps) => {
         ></SignButton>
         <SignButton
           isValid={true}
-          text="삭제"
+          text={isEditing ? '취소' : '삭제'}
           onClick={handleDeleteTodo}
-          id="delete-button"
+          id={isEditing ? 'cancel-button' : 'delete-button'}
         ></SignButton>
       </TodoController>
     </TodoItemStyle>

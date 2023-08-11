@@ -18,7 +18,7 @@ export const reducer = (state: TodoType[], action: Action) => {
       return action.data;
     }
     case 'CREATE': {
-      newState = [action.data, ...state];
+      newState = [...state,action.data];
       break;
     }
     case 'DELETE': {
